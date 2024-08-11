@@ -38,6 +38,17 @@ A Python script that continuously monitors USB devices connected to the system a
 
 Once the service is running, it will monitor USB devices and shut down the system if any changes are detected.
 
+## Deinstallation
+
+To remove the USB Kill Switch from your system, follow these steps:
+
+   ```bash
+   sudo systemctl stop usbks.service
+   sudo systemctl disable usbks.service
+   sudo rm /etc/systemd/system/usbks.service
+   sudo rm /usr/bin/usbks
+   ```
+
 ## Disclaimer
 
 Use this tool responsibly, as it may cause data loss if not used correctly.
