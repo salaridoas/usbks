@@ -1,0 +1,10 @@
+[Unit]
+Description=Usb Kill Switch
+Before=network.target 
+
+[Service]
+ExecStart=/usr/bin/usbks
+Restart=always  
+
+[Install]
+WantedBy=multi-user.target
