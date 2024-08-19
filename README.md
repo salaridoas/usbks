@@ -4,51 +4,54 @@ A Python script that continuously monitors USB devices connected to the system a
 
 ## Dependencies
 
-- [usbutils](https://github.com/gregkh/usbutils) (lsusb)
+- [usbutils](https://github.com/gregkh/usbutils) (for `lsusb` command)
 
-## Installation
+## Installation Steps
 
-### Linux (Using Python Virtual Environment)
+### Step 1: Clone the Repository
+```bash
+git clone https://github.com/salaridoas/usbks.git /tmp/usbks
+cd /tmp/usbks
+```
 
-1. **Clone the Repository and Set Up Virtual Environment**:
-   ```bash
-   git clone https://github.com/salaridoas/usbks.git /tmp/usbks
-   cd /tmp/usbks
-   python3 -m venv .venv
-   source .venv/bin/activate
-   pip install pyinstaller
-   ```
+### Step 2: Set Permissions and Move Files
+```bash
+chmod +x usbks.py
+sudo mv usbks.py /usr/bin/usbks
+sudo mv usbks.service /etc/systemd/system/
+```
 
-2. **Create Executable Binary and Move Files**:
-   ```bash
-   pyinstaller --onefile usbks.py
-   sudo mv dist/usbks /usr/bin/
-   sudo mv usbks.service /etc/systemd/system/
-   ```
-
-3. **Manage the USBKS Service**:
-   ```bash
-   sudo systemctl daemon-reload
-   sudo systemctl enable usbks.service
-   sudo systemctl start usbks.service
-   sudo systemctl status usbks.service
-   ```
+### Step 3: Configure the USB Kill Switch Service
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable usbks.service
+sudo systemctl start usbks.service
+sudo systemctl status usbks.service
+```
 
 ## Usage
 
 Once the service is running, it will monitor USB devices and shut down the system if any changes are detected.
 
-## Deinstallation
+## Uninstallation Steps
 
 To remove the USB Kill Switch from your system, follow these steps:
 
-   ```bash
-   sudo systemctl stop usbks.service
-   sudo systemctl disable usbks.service
-   sudo rm /etc/systemd/system/usbks.service
-   sudo rm /usr/bin/usbks
-   ```
+### Step 1: Stop the Service
+```bash
+sudo systemctl stop usbks.service
+```
+
+### Step 2: Disable the Service
+```bash
+sudo systemctl disable usbks.service
+```
+
+### Step 3: Remove Service and Executable
+```bash
+sudo rm /etc/systemd/system/usbks.service /usr/bin/usbks
+```
 
 ## Disclaimer
 
-Use this tool responsibly, as it may cause data loss if not used correctly.
+Use this tool responsibly, as it may cause data loss if not used correctly. Ensure you understand the implications of automatically shutting down your system in response to USB device changes.
